@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Awesome Navbar !!</title>
+</head>
+<body onload="load()">
+  <ul>
+
+  </ul>
+</body>
+</html>
+
+<script>
+  let data = {};
+  function load() {
+    data = JSON.parse('[{"title": "home","url" : "/"},{"title" : "producten","url" : "/producten/"},{"title": "Overons","url" : "/overons/"},{"title": "contact","url" : "/contact/"}]');
+    console.log(data);
+    const listEl = document.querySelector('ul');
+    data.forEach(entry => {
+      const newEl = document.createElement('li');
+      const linkEl = document.createElement('a');
+      linkEl.innerText = entry.title;
+      linkEl.href = entry.url;
+      newEl.appendChild(linkEl);
+      listEl.appendChild(newEl);
+    });
+  }
+
+</script>
+
+<style>
+  ul {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    font-size: 1.5em;
+    background-color: indianred;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+  }
+</style>
