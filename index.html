@@ -4,19 +4,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Awesome Navbar !!</title>
 </head>
-<body onload="load()">
-  <ul>
+<body onload="load()" onresize="resize()">
+  <header>
+    <ul>
 
-  </ul>
+    </ul>
+    <button onclick="openBurger()">...</button>
+  </header>
 </body>
 </html>
 
 <script>
   let data = {};
+  let burgerOpen = false;
+  const listEl = document.querySelector('ul');
+
   function load() {
     data = JSON.parse('[{"title": "home","url" : "/"},{"title" : "producten","url" : "/producten/"},{"title": "Overons","url" : "/overons/"},{"title": "contact","url" : "/contact/"}]');
-    console.log(data);
-    const listEl = document.querySelector('ul');
     data.forEach(entry => {
       const newEl = document.createElement('li');
       const linkEl = document.createElement('a');
@@ -27,20 +31,94 @@
     });
   }
 
+  function openBurger() {
+    if (burgerOpen) {
+      listEl.style.visibility = 'hidden';
+      listEl.style.display = 'none';
+      burgerOpen = false;
+    }
+    else {
+      listEl.style.visibility = 'visible';
+      listEl.style.display = 'flex';
+      burgerOpen = true;
+    }
+  }
+
+  function resize() {
+    if (window.innerWidth > 600 && burgerOpen == false) {
+      listEl.style.visibility = 'visible';
+      listEl.style.display = 'flex';
+    }
+    else {
+      if (listEl.style.visibility == 'visible' && burgerOpen == false) {
+        listEl.style.visibility = 'hidden';
+        listEl.style.display = 'none';
+      }
+    }
+  }
+
 </script>
 
 <style>
+  header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: indianred;
+    height: 50px;
+    position: relative;
+  }
+
   ul {
     display: flex;
     justify-content: space-around;
     list-style: none;
     font-size: 1.5em;
-    background-color: indianred;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+    visibility: visible;
+    position: relative;
   }
 
   a {
     color: white;
     text-decoration: none;
-    padding: 10px;
+    padding:  auto 10px;
+  }
+
+  button {
+    visibility: hidden;
+    display: none;
+    margin: 5px;
+    border: none;
+    background: none;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 4px;
+    cursor: pointer;
+    padding: 5px;
+  }
+
+  @media screen and (width < 600px) {
+    ul {
+      visibility: hidden;
+      flex-flow: column;
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: indianred;
+      border: 1px solid black;
+    }
+
+    li {
+      padding: 5px;
+    }
+
+    button {
+      display: block;
+      visibility: visible;
+    }
   }
 </style>
